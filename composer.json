@@ -1,5 +1,5 @@
 {
-    "name": "GlaivePro/Hidevara",
+    "name": "glaivepro/hidevara",
     "type": "library",
     "description": "Laravel millipackage that hides variables from getting dumped in the Whoops page when your app crashes.",
     "keywords": [
