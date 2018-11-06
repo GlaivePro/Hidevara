@@ -2,6 +2,8 @@
 
 Laravel millipackage that hides your variables from getting dumped in the Whoops page when your app crashes.
 
+![image with the variables hidden](https://user-images.githubusercontent.com/16481303/48101600-404e9700-e230-11e8-987c-a4bee97c580b.png)
+
 `Hidevara` is japonese for `hide the damn vars`.
 
 ## Usage
