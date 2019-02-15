@@ -16,12 +16,13 @@ To deal with the cases where the app crashes before loading providers, you shoul
 ```php
 // bootstrap/app.php
 
-// This must be before and should be exactly before the new lines:
+// This (or something similar with another namespace instead of App) is already there
 // $app->singleton(
 //     Illuminate\Contracts\Debug\ExceptionHandler::class,
 //     App\Exceptions\Handler::class
 // );
 
+// Add this after (preferrably exactly after) the above lines.
 $app->extend(
 	Illuminate\Contracts\Debug\ExceptionHandler::class,
 	function($originalHandler) {
