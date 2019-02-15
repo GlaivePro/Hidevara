@@ -2,22 +2,37 @@
 
 Laravel millipackage that hides your variables from getting dumped in the Whoops page when your app crashes.
 
-![image with the variables hidden](https://user-images.githubusercontent.com/16481303/48101600-404e9700-e230-11e8-987c-a4bee97c580b.png)
-
 `Hidevara` is japonese for `hide the damn vars`.
 
 ## Usage
 
-Just install it:
+Install it:
 
 ``` bash
 $ composer require glaivepro/hidevara
 ```
 
-By default it will:
+To deal with the cases where the app crashes before loading providers, you should open your `bootstrap/app.php` and add this extending after the handler binding
+```php
+// bootstrap/app.php
+
+// This must be before and should be exactly before the new lines:
+// $app->singleton(
+//     Illuminate\Contracts\Debug\ExceptionHandler::class,
+//     App\Exceptions\Handler::class
+// );
+
+$app->extend(
+	Illuminate\Contracts\Debug\ExceptionHandler::class,
+	function($originalHandler) {
+		return new GlaivePro\Hidevara\HidingHandler($originalHandler);
+});
+```
+
+By default this package will:
 
 - leave your GET and FILES intact;
-- hide value of any POST field that has a name containg `password`;
+- hide value of any POST field that has a name containing `password`;
 - hide values of SESSION and COOKIE;
 - remove almost all SERVER variables (except REDIRECT_STATUS, REQUEST_METHOD, QUERY_STRING, REQUEST_URI);
 - remove all ENV variables.
@@ -60,9 +75,7 @@ There are also `replaceHiddenValueWith` and `replaceHiddenEmptyValueWith` where 
 
 ## Changes to error handling
 
-The package extends `App\Exceptions\Handler` and thus will not work if your exception handler is not `App\Exceptions\Handler`. Take care if you decide to change the app name. Or pop a new issue in the tracker if you've got an idea how to solve this problem.
-
-To hide the global variables from Whoops, they are hijacked/ruined just before calling your `App\Exceptions\Handler::render()`. If you need access to the original global at that method, you can get them in `$GLOBALS['hidevara']`. For example, `$GLOBALS['hidevara']['_SERVER']` is what `$_SERVER` was.
+To hide the global variables from Whoops, they are hijacked/ruined just before calling your `Handler::render()`. If you need access to the original global at that method, you can get them in `$GLOBALS['hidevara']`. For example, `$GLOBALS['hidevara']['_SERVER']` is what `$_SERVER` was.
 
 ## Collaboration
 
@@ -71,7 +84,6 @@ Pls help! Here are the open problems and questions:
 - What should the default config be?
 - Should config allow repeating the same type of rule? It's possible but would make config syntax more complicated.
 - Are there better ways to do this in Laravel? 
-- Can we at least avoid tying it all to the app name in Laravel?
 - Can we intercept directly in the Whoopsies `PrettyPageHandler` and make this not Laravel specific?
 
 ## Change log
