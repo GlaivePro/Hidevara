@@ -2,12 +2,27 @@
 
 namespace GlaivePro\Hidevara;
 
-use \Illuminate\Console\AppNamespaceDetectorTrait;
-use App\Exceptions\Handler as ExceptionHandler;
-
-class Handler extends ExceptionHandler
+class HidingHandler
 {
 	protected $superGlobies = ['_GET', '_POST', '_FILES', '_COOKIE', '_SESSION', '_SERVER', '_ENV'];
+	
+	// The original error handler
+	protected $handler;
+	
+	public function __construct($handler)
+	{
+		// Merge the config here
+		$config = \Config::get('hidevara', []);
+        \Config::set('hidevara', array_merge(require __DIR__.'/config.php', $config));
+		
+		$this->handler = $handler;
+	}
+	
+	public function __call($method, $arguments)
+	{
+		// Pass whatever calls to the original error handler
+		return $this->handler->$method(...$arguments);
+	}
 	
 	protected function variableMatches($variable, $test)
 	{	
@@ -72,6 +87,6 @@ class Handler extends ExceptionHandler
 		foreach ($this->superGlobies as $superG)
 			 $this->dealWithSuperG($superG);
 		
-        return parent::render($request, $exception);
+		return $this->handler->render($request, $exception);
     }
 }

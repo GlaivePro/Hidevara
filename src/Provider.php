@@ -25,11 +25,20 @@ class Provider extends ServiceProvider
      */
     public function register()
     {
-		$this->mergeConfigFrom(__DIR__.'/config.php', 'hidevara');
+		// We merge the config inside the class because the script might crash before calling this provider.
 		
-		$this->app->singleton(
+		$handler = resolve(\Illuminate\Contracts\Debug\ExceptionHandler::class);
+		
+		// If the developer bound the Hider manually, we're leaving
+		if ($handler instanceof HidingHandler)
+			return;
+		
+		$this->app->extend(
 			\Illuminate\Contracts\Debug\ExceptionHandler::class,
-			Handler::class
-		);
+			function($originalHandler) {
+				return new HidingHandler($originalHandler);
+		});
+		
+		
     }
 }

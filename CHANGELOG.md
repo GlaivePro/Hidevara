@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.1
+
+### Added
+- Option to manually bind the hider earlier in lifecycle.
+
+### Changed
+- Changed extending method to use Laravel Service Container's extend method instead of the PHP native extending. This allows to use this regardless of the app namespace.
+- Moved config merging from provider to class because a crash could happen before provider is called.
+- Some namings and internal procedures.
+
+### Updated
+- Readme according to changes.
+
 ## Initial commit
 
 ### Added
