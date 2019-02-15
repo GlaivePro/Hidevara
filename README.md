@@ -82,6 +82,7 @@ To hide the global variables from Whoops, they are hijacked/ruined just before c
 
 Pls help! Here are the open problems and questions:
 
+- We should make a console command that fixes `app\bootstrap.php`. Can we force calling it in the provider if needed?
 - What should the default config be?
 - Should config allow repeating the same type of rule? It's possible but would make config syntax more complicated.
 - Are there better ways to do this in Laravel? 
