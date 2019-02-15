@@ -2,7 +2,7 @@
 
 namespace GlaivePro\Hidevara;
 
-class HidingHandler
+class HidingHandler implements \Illuminate\Contracts\Debug\ExceptionHandler
 {
 	protected $superGlobies = ['_GET', '_POST', '_FILES', '_COOKIE', '_SESSION', '_SERVER', '_ENV'];
 	
@@ -89,4 +89,15 @@ class HidingHandler
 		
 		return $this->handler->render($request, $exception);
     }
+	
+	// The following two functions are just here so we could implement the ExceptionHandler interface
+	public function report(\Exception $exception)
+	{
+		return $this->handler->report($exception);
+	}
+	
+	public function renderForConsole($output, \Exception $exception)
+	{
+		return $this->handler->renderForConsole($output, $exception);
+	}
 }

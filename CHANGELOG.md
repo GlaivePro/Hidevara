@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2
+
+### Fixed
+- Made HidingHandler implement ExceptionHandler i-face.
+
 ## 1.0.1
 
 ### Added
