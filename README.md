@@ -25,8 +25,8 @@ To deal with the cases where the app crashes before loading providers, you shoul
 // Add this after (preferrably exactly after) the above lines.
 $app->extend(
 	Illuminate\Contracts\Debug\ExceptionHandler::class,
-	function($originalHandler) {
-		return new GlaivePro\Hidevara\HidingHandler($originalHandler);
+	function($handler) {
+		return new GlaivePro\Hidevara\HidingHandler($handler);
 });
 ```
 
