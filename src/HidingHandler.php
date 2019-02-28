@@ -101,7 +101,7 @@ class HidingHandler implements \Illuminate\Contracts\Debug\ExceptionHandler
 		return $this->handler->renderForConsole($output, $exception);
 	}
 	
-	public function shouldReport(Exception $exception)
+	public function shouldReport(\Exception $exception)
 	{
 		return $this->handler->shouldReport($exception);
 	}
