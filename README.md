@@ -12,17 +12,17 @@ Install it:
 $ composer require glaivepro/hidevara
 ```
 
-To deal with the cases where the app crashes before loading providers, you should open your `bootstrap/app.php` and add this extending after the handler binding
+To deal with the cases where the app crashes before loading providers, you should open your `bootstrap/app.php` and extend the handler. Find these rows (or something similar with another namespace if you've changed that):
 ```php
-// bootstrap/app.php
+// This is already there
+$app->singleton(
+    Illuminate\Contracts\Debug\ExceptionHandler::class,
+    App\Exceptions\Handler::class
+);
+```
 
-// This (or something similar with another namespace instead of App) is already there
-// $app->singleton(
-//     Illuminate\Contracts\Debug\ExceptionHandler::class,
-//     App\Exceptions\Handler::class
-// );
-
-// Add this after (preferrably exactly after) the above lines.
+Immediately after that insert these lines to extend the handler:
+```
 $app->extend(
 	Illuminate\Contracts\Debug\ExceptionHandler::class,
 	function($handler) {
