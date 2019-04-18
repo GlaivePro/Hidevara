@@ -22,7 +22,7 @@ $app->singleton(
 ```
 
 Immediately after that insert these lines to extend the handler:
-```
+```php
 $app->extend(
 	Illuminate\Contracts\Debug\ExceptionHandler::class,
 	function($handler) {
