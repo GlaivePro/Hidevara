@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.5
+
+### Fixed
+
+- The package crashing PHPUnit in some cases.
+
+## 1.0.4
+
+### Added
+
+- Laravel 5.8 compatibility.
+
 ## 1.0.2
 
 ### Fixed
