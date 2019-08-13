@@ -23,11 +23,13 @@ $app->singleton(
 
 Immediately after that insert these lines to extend the handler:
 ```php
-$app->extend(
-	Illuminate\Contracts\Debug\ExceptionHandler::class,
-	function($handler) {
-		return new GlaivePro\Hidevara\HidingHandler($handler);
-});
+// Enable only outside testing as this does not work well with phpunit... see below
+if ('testing' != env('APP_ENV'))  // this will work even with config caching
+	$app->extend(
+		Illuminate\Contracts\Debug\ExceptionHandler::class,
+		function($handler) {
+			return new GlaivePro\Hidevara\HidingHandler($handler);
+	});
 ```
 
 By default this package will:
@@ -77,6 +79,12 @@ There are also `replaceHiddenValueWith` and `replaceHiddenEmptyValueWith` where 
 ## Changes to error handling
 
 To hide the global variables from Whoops, they are hijacked/ruined just before calling your `Handler::render()`. If you need access to the original global at that method, you can get them in `$GLOBALS['hidevara']`. For example, `$GLOBALS['hidevara']['_SERVER']` is what `$_SERVER` was.
+
+## Working with PHPUnit
+
+Sometimes (supposedly when an exception is raised) this package crashes PHPUnit. To prevent this, we are not enabling the custom handling when the environment is `testing`.
+
+If you do need to enable this while running PHPUnit, the errors can be prevented by setting `processIsolation="true"` on the `<phpunit>` tag in your `phpunit.xml`.
 
 ## Collaboration
 

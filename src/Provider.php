@@ -26,19 +26,17 @@ class Provider extends ServiceProvider
     public function register()
     {
 		// We merge the config inside the class because the script might crash before calling this provider.
-		
 		$handler = resolve(\Illuminate\Contracts\Debug\ExceptionHandler::class);
 		
 		// If the developer bound the Hider manually, we're leaving
 		if ($handler instanceof HidingHandler)
 			return;
 		
-		$this->app->extend(
-			\Illuminate\Contracts\Debug\ExceptionHandler::class,
-			function($originalHandler) {
-				return new HidingHandler($originalHandler);
-		});
-		
-		
+		if ('testing' != env('APP_ENV'))
+			$this->app->extend(
+				\Illuminate\Contracts\Debug\ExceptionHandler::class,
+				function($originalHandler) {
+					return new HidingHandler($originalHandler);
+			});
     }
 }
