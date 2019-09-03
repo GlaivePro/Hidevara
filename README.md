@@ -1,5 +1,7 @@
 # Hidevara
 
+> Laravel 6.0 includes Ignition instad of whoops. Now the default error page no longer dumps your variables. Thus this package will not be updated for 6.0 at least for now.
+
 Laravel millipackage that hides your variables from getting dumped in the Whoops page when your app crashes.
 
 `Hidevara` is japonese for `hide the damn vars`.
