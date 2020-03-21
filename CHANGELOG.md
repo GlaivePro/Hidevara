@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0
+
+### Added
+
+- Laravel 7 compatibility.
+
 ## 1.0.5
 
 ### Fixed

@@ -82,7 +82,7 @@ class HidingHandler implements \Illuminate\Contracts\Debug\ExceptionHandler
 			$this->dealWithField($superG, $field, $rules);
 	}
 	
-    public function render($request, \Exception $exception)
+    public function render($request, \Throwable $exception)
     {
 		foreach ($this->superGlobies as $superG)
 			 $this->dealWithSuperG($superG);
@@ -90,18 +90,18 @@ class HidingHandler implements \Illuminate\Contracts\Debug\ExceptionHandler
 		return $this->handler->render($request, $exception);
     }
 	
-	// The following two functions are just here so we could implement the ExceptionHandler interface
-	public function report(\Exception $exception)
+	// The following functions are here so we could implement the ExceptionHandler interface
+	public function report(\Throwable $exception)
 	{
 		return $this->handler->report($exception);
 	}
 	
-	public function renderForConsole($output, \Exception $exception)
+	public function renderForConsole($output, \Throwable $exception)
 	{
 		return $this->handler->renderForConsole($output, $exception);
 	}
 	
-	public function shouldReport(\Exception $exception)
+	public function shouldReport(\Throwable $exception)
 	{
 		return $this->handler->shouldReport($exception);
 	}
