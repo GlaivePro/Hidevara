@@ -2,6 +2,8 @@
 
 > Even though Laravel >=6.x includes Ignition which no longer dumps your variables, it requires Whoops itself. And in some cases you can still get to the old error page with variables dumped.
 
+> This package works fine with Laravel 8. I haven't updated it lately because it just works as fine as it did before.
+
 Laravel millipackage that hides your variables from getting dumped in the Whoops page when your app crashes.
 
 `Hidevara` is japonese for `hide the damn vars`.
